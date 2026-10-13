@@ -407,24 +407,29 @@ const COLS={
 ],
 "atto3": [
 [
-"Perak",
-"#c9ccd2",
+"Ski White",
+"#f3f3f1",
 "c/atto3-1.png"
 ],
 [
-"Hitam",
+"Cosmos Black",
 "#1c1f24",
 "c/atto3-2.png"
 ],
 [
-"Biru",
-"#2a63c9",
+"Boulder Grey",
+"#7d8087",
 "c/atto3-3.png"
 ],
 [
-"Merah",
-"#b3202a",
+"Forest Green",
+"#2f5d45",
 "c/atto3-4.png"
+],
+[
+"Surf Blue",
+"#2a63c9",
+"c/atto3-5.png"
 ]
 ],
 "m6": [
@@ -478,12 +483,12 @@ const COLS={
 "c/sealion7-1.png"
 ],
 [
-"Hitam",
+"Cosmos Black",
 "#1c1f24",
 "c/sealion7-2.png"
 ],
 [
-"Putih",
+"Aurora White",
 "#f2f2f2",
 "c/sealion7-3.png"
 ],
