@@ -232,6 +232,17 @@ details .feats{margin:6px 20px 20px}
 .g h3{margin:14px 0 6px;font-size:17px}
 .g p{color:var(--mut);font-size:14.5px}
 .src{margin-top:22px;font-size:12.5px;color:var(--mut)}.src a{text-decoration:underline}
+/* testimoni */
+.ts{position:relative;margin-top:36px}
+.tr{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.tr::-webkit-scrollbar{display:none}
+.tr{max-width:420px;margin-inline:auto;cursor:grab}
+.tr.d{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
+.tr img{-webkit-user-drag:none;user-select:none}
+.tr img{flex:none;width:100%;max-height:560px;object-fit:contain;scroll-snap-align:center;border-radius:16px;border:1px solid var(--line);background:var(--card);box-shadow:var(--sh)}
+.tn{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.tn button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.tn button:hover{border-color:var(--red2);color:var(--red2)}
 /* faq */
 .faq{display:grid;gap:12px;margin-top:36px;max-width:860px}
 .faq details p{padding:16px 20px 20px;color:var(--mut);font-size:15px}
@@ -304,6 +315,7 @@ footer p+p{margin-top:8px;font-size:12px}
     <nav class="links" id="lk">
       <a href="#model">Model</a>
       <a href="#lineup">Semua Mobil</a>
+      <a href="#testimoni">Serah Terima</a>
       <a href="#why">Keunggulan</a>
       <a href="#garansi">Garansi</a>
       <a href="#faq">FAQ</a>
@@ -376,6 +388,25 @@ footer p+p{margin-top:8px;font-size:12px}
     <span class="eyebrow rv">Lineup BYD Indonesia</span>
     <h2 class="rv">Satu merek, tujuh pilihan</h2>
     <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni">
+  <div class="wrap">
+    <span class="eyebrow rv">Serah Terima Unit</span>
+    <h2 class="rv">Sudah banyak yang percaya, unitnya sudah di tangan</h2>
+    <div class="ts rv">
+      <div class="tr" id="tr">
+        <img src="img/testi/1.jpeg" alt="Serah terima unit BYD Purwakarta 1" loading="lazy">
+        <img src="img/testi/2.jpeg" alt="Serah terima unit BYD Purwakarta 2" loading="lazy">
+        <img src="img/testi/3.jpeg" alt="Serah terima unit BYD Purwakarta 3" loading="lazy">
+      </div>
+      <div class="tn">
+        <button aria-label="Sebelumnya" onclick="ts(-1)"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button aria-label="Berikutnya" onclick="ts(1)"><svg class="i" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -461,6 +492,30 @@ footer p+p{margin-top:8px;font-size:12px}
   </div>
   <p class="lbcap" id="lbc"></p>
 </dialog>
+<script>
+/* slider testimoni: 1 gambar/slide, autoplay, jeda saat disentuh/hover */
+var tr=document.getElementById('tr'),tp=0;
+var tn=tr.children.length,tj;
+function tw(){return tr.clientWidth+16}
+function tjump(i){tr.style.scrollBehavior='auto';tr.scrollLeft=i*tw();tr.style.scrollBehavior=''}
+/* infinite: klon gambar terakhir di awal & pertama di akhir, lompat diam-diam setelah geser berhenti */
+var tc=tr.lastElementChild.cloneNode();tc.alt='';tc.setAttribute('aria-hidden','true');tc.loading='eager';tr.prepend(tc);
+tc=tr.children[1].cloneNode();tc.alt='';tc.setAttribute('aria-hidden','true');tc.loading='eager';tr.append(tc);
+function tfix(){var i=Math.round(tr.scrollLeft/tw());if(i<=0)tjump(tn);else if(i>=tn+1)tjump(1)}
+tr.addEventListener('scroll',function(){clearTimeout(tj);tj=setTimeout(function(){if(tdx==null)tfix()},120)},{passive:true});
+addEventListener('resize',function(){tjump(1)});
+tjump(1);
+function ts(d){tr.scrollBy({left:d*tw()})}
+setInterval(function(){if(!tp&&!document.hidden)ts(1)},4000);
+['mouseenter','touchstart','focusin'].forEach(function(e){tr.parentNode.addEventListener(e,function(){tp=1},{passive:true})});
+['mouseleave','touchend','focusout'].forEach(function(e){tr.parentNode.addEventListener(e,function(){tp=0},{passive:true})});
+/* drag mouse; sentuhan sudah native */
+var tdx,tds;
+tr.addEventListener('pointerdown',function(e){if(e.pointerType!='mouse')return;tdx=e.clientX;tds=tr.scrollLeft;tr.classList.add('d');tr.setPointerCapture(e.pointerId)});
+tr.addEventListener('pointermove',function(e){if(tdx!=null)tr.scrollLeft=tds-(e.clientX-tdx)});
+function te(){if(tdx==null)return;tdx=null;var w=tr.clientWidth+16;tr.classList.remove('d');tr.scrollTo({left:Math.round(tr.scrollLeft/w)*w})}
+tr.addEventListener('pointerup',te);tr.addEventListener('pointercancel',te);
+</script>
 <script src="media.js"></script>
 <script src="models.js"></script>
 <script>
